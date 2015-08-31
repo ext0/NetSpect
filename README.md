@@ -4,7 +4,7 @@ Automatic Network Analysis using the <a href="https://github.com/titanium007/Tit
 
 <h3><b>Features</b></h3>
 <ul>
-<li>Dynamically edit DOM elements before they reach your browser.</li>
+<li>Dynamically edit DOM elements before they reach your browser. (Like replacing the src attribute of every img element with an alternative image)</li>
 <li>Filter traffic and useragents to lower identifiable information reaching end servers.</li>
 <li>Automatically create C# code to duplicate a POST / GET request.</li>
 <li>Inspect cookies / headers of all outbound requests</li>
