@@ -6,7 +6,7 @@ using Titanium.Web.Proxy.Models;
 
 namespace RequestBuilder
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -104,7 +104,7 @@ namespace RequestBuilder
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.startButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -133,13 +133,13 @@ namespace RequestBuilder
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(857, 665);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(621, 34);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Start Proxy Server\r\n";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.startButton.Location = new System.Drawing.Point(857, 665);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(621, 34);
+            this.startButton.TabIndex = 1;
+            this.startButton.Text = "Start Proxy Server\r\n";
+            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // dataGridView1
             // 
@@ -236,7 +236,6 @@ namespace RequestBuilder
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Request Information";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label7
             // 
@@ -307,7 +306,6 @@ namespace RequestBuilder
             this.label1.Size = new System.Drawing.Size(76, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Hostname:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // tabPage2
             // 
@@ -337,10 +335,9 @@ namespace RequestBuilder
             this.ClientSize = new System.Drawing.Size(1490, 711);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.startButton);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -353,7 +350,7 @@ namespace RequestBuilder
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button startButton;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn Type;
         private DataGridViewTextBoxColumn ID;

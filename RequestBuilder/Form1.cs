@@ -15,16 +15,16 @@ using System.Threading;
 
 namespace RequestBuilder
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         public List<Tuple<int,SessionEventArgs>> connections = new List<Tuple<int, SessionEventArgs>>();
         internal int i = 0;
         internal bool flag = false;
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
-        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
@@ -34,10 +34,6 @@ namespace RequestBuilder
             {
 
             }
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
         public bool startProxyServer(bool SSL, bool sysProxy)
         {
@@ -94,14 +90,14 @@ namespace RequestBuilder
                 }
             }
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void startButton_Click(object sender, EventArgs e)
         {
 
             if (WebRequest.DefaultWebProxy.GetProxy(new Uri("http://www.google.com/")).Host.Equals("localhost"))
             {
                 stopProxyServer();
                 MessageBox.Show(this, "Proxy server successfully stopped.");
-                button1.Text = "Start Proxy Server";
+                startButton.Text = "Start Proxy Server";
             }
             else
             {
@@ -113,18 +109,8 @@ namespace RequestBuilder
                 {
                     MessageBox.Show(this, "Proxy server failed to start!");
                 }
-                button1.Text = "Stop Proxy Server";
+                startButton.Text = "Stop Proxy Server";
             }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
