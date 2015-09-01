@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using Titanium.Web.Proxy.Models;
+using HtmlAgilityPack;
 
 namespace RequestBuilder
 {
@@ -104,6 +105,8 @@ namespace RequestBuilder
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.startButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -124,14 +127,22 @@ namespace RequestBuilder
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.label8 = new System.Windows.Forms.Label();
+            this.ElementType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttributeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModifiedValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // startButton
             // 
             this.startButton.Location = new System.Drawing.Point(857, 665);
             this.startButton.Name = "startButton";
@@ -145,6 +156,8 @@ namespace RequestBuilder
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -204,6 +217,7 @@ namespace RequestBuilder
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(857, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -328,7 +342,62 @@ namespace RequestBuilder
             this.textBox1.Size = new System.Drawing.Size(603, 618);
             this.textBox1.TabIndex = 0;
             // 
-            // Form1
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.dataGridView2);
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(613, 630);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Modify Requests/Responses";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView2
+            // 
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ElementType,
+            this.AttributeName,
+            this.ModifiedValue});
+            this.dataGridView2.Location = new System.Drawing.Point(10, 30);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(597, 290);
+            this.dataGridView2.TabIndex = 2;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(211, 3);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(210, 24);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Response Modifications";
+            // 
+            // ElementType
+            // 
+            this.ElementType.HeaderText = "Element Type";
+            this.ElementType.Name = "ElementType";
+            this.ElementType.Width = 150;
+            // 
+            // AttributeName
+            // 
+            this.AttributeName.HeaderText = "Attribute Name";
+            this.AttributeName.Name = "AttributeName";
+            this.AttributeName.Width = 200;
+            // 
+            // ModifiedValue
+            // 
+            this.ModifiedValue.HeaderText = "Modified Value";
+            this.ModifiedValue.Name = "ModifiedValue";
+            this.ModifiedValue.Width = 200;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -336,7 +405,7 @@ namespace RequestBuilder
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.startButton);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -345,6 +414,9 @@ namespace RequestBuilder
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -370,6 +442,12 @@ namespace RequestBuilder
         private Label label6;
         private Label label7;
         private TextBox textBox1;
+        private TabPage tabPage3;
+        private Label label8;
+        private DataGridView dataGridView2;
+        private DataGridViewTextBoxColumn ElementType;
+        private DataGridViewTextBoxColumn AttributeName;
+        private DataGridViewTextBoxColumn ModifiedValue;
     }
 }
 

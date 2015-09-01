@@ -12,6 +12,7 @@ using RequestBuilder;
 using System.Net;
 using Titanium.Web.Proxy;
 using System.Threading;
+using HtmlAgilityPack;
 
 namespace RequestBuilder
 {
@@ -54,7 +55,7 @@ namespace RequestBuilder
         {
             flag = true;
             addConnection(i, e);
-            if (connections.Count > 100000)
+            if (connections.Count > 250)
             {
                 connections.RemoveAt(0);
             }
@@ -80,11 +81,53 @@ namespace RequestBuilder
                     {
                         try
                         {
-                            e.Ok("<!-- Processed by RequestBuilder -->\n" + e.GetResponseHtmlBody());
-                        }
-                        catch
-                        {
+                            String body = e.GetResponseHtmlBody();
+                            try
+                            {
+                                foreach (DataGridViewRow row in dataGridView2.Rows)
+                                {
+                                    if (row == null) continue;
+                                    bool check = true;
+                                    foreach (DataGridViewCell cell in row.Cells)
+                                    {
+                                        if (cell.Value == null)
+                                        {
+                                            check = false;
+                                            continue;
+                                        }
+                                        String val = (String)cell.Value;
+                                        if (val.Trim().Length <= 1)
+                                        {
+                                            check = false;
+                                        }
+                                    }
+                                    if (check)
+                                    {
+                                        HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                                        doc.LoadHtml(body);
+                                        Console.WriteLine("//" + row.Cells[0].Value + "[@" + row.Cells[1].Value + "]");
+                                        foreach (HtmlNode img in doc.DocumentNode.SelectNodes("//" + row.Cells[0].Value + "[@" + row.Cells[1].Value + "]"))
+                                        {
+                                            if (img == null) continue;
+                                            if (img.Attributes[(String)row.Cells[1].Value] != null)
+                                            {
+                                                img.SetAttributeValue((String)row.Cells[1].Value, (String)row.Cells[2].Value);
+                                            }
+                                        }
+                                        body = doc.DocumentNode.OuterHtml;
+                                    }
+                                }
+                            }
+                            catch
+                            {
 
+                            }
+                            e.Ok("<!-- Processed by RequestBuilder -->\n" + body);
+                            
+                        }
+                        catch(Exception exception)
+                        {
+                            Console.WriteLine("EXCEPTION: " + exception.Message);
                         }
                     }
                 }
