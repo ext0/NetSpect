@@ -138,9 +138,13 @@ namespace RequestBuilder
 
             if (WebRequest.DefaultWebProxy.GetProxy(new Uri("http://www.google.com/")).Host.Equals("localhost"))
             {
-                stopProxyServer();
-                MessageBox.Show(this, "Proxy server successfully stopped.");
-                startButton.Text = "Start Proxy Server";
+                try{
+                    stopProxyServer();
+                    MessageBox.Show(this, "Proxy server successfully stopped.");
+                    startButton.Text = "Start Proxy Server";
+                }catch{
+                    MessageBox.Show(this,"Alternative proxy server already enabled! Please disable this via the control panel and then try again.");
+                }
             }
             else
             {
