@@ -138,27 +138,81 @@ namespace RequestBuilder
 
             if (WebRequest.DefaultWebProxy.GetProxy(new Uri("http://www.google.com/")).Host.Equals("localhost"))
             {
-                stopProxyServer();
-                MessageBox.Show(this, "Proxy server successfully stopped.");
-                startButton.Text = "Start Proxy Server";
+                try
+                {
+                    stopProxyServer();
+                    startButton.Text = "Start Proxy Server";
+                    MessageBox.Show(this, "Proxy server successfully stopped.");
+                }
+                catch
+                {
+                    MessageBox.Show(this, "An error occured while changing the system proxy! Is one already in place?");
+                }
             }
             else
             {
                 if (startProxyServer(true, true))
                 {
+                    startButton.Text = "Stop Proxy Server";
                     MessageBox.Show(this, "Proxy server successfully started.");
                 }
                 else
                 {
+                    startButton.Text = "Stop Proxy Server";
                     MessageBox.Show(this, "Proxy server failed to start!");
                 }
-                startButton.Text = "Stop Proxy Server";
             }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            setConnection(connections[e.RowIndex].Item2);
+            try
+            {
+                setConnection(connections[e.RowIndex].Item2);
+            }
+            catch
+            {
+                MessageBox.Show(this, "Error loading this connections details!");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridView1.SelectedRows[0] != null)
+                {
+                    SessionEventArgs conn = connections[dataGridView1.SelectedRows[0].Index].Item2;
+                    String request = "";
+                    if (checkBox1.Checked)
+                    {
+                        request += @"
+                        public String readResponse(HttpWebResponse response)
+                        {
+                            using (Stream responseStream = response.GetResponseStream())
+                            {
+                                Stream streamToRead = responseStream;
+                                if (response.ContentEncoding.ToLower().Contains(""gzip""))
+                                {
+                                    streamToRead = new GZipStream(streamToRead, CompressionMode.Decompress);
+                                }
+                                else if (response.ContentEncoding.ToLower().Contains(""deflate""))
+                                {
+                                    streamToRead = new DeflateStream(streamToRead, CompressionMode.Decompress);
+                                }
+                                using (StreamReader streamReader = new StreamReader(streamToRead, Encoding.UTF8))
+                                {
+                                    return streamReader.ReadToEnd();
+                                }
+                            }
+                        }
+                        
+                        ";
+                    }
+                    
+                }
+            }
+            catch { }
         }
     }
     class ConnectionView : ListViewItem
